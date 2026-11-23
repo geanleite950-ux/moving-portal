@@ -81,17 +81,17 @@ def workspace_settings(request, workspace_id):
                     .count()
                 )
                 if active_count <= 1:
-                    messages.error(request, "Cannot archive the last workspace in the organization.")
+                    messages.error(request, "Não é possível arquivar o último workspace da organização.")
                     return redirect("workspaces:settings", workspace_id=workspace.id)
                 workspace.is_archived = True
                 workspace.save(update_fields=["is_archived"])
-            messages.success(request, f'Workspace "{workspace.name}" has been archived.')
+            messages.success(request, f'Workspace "{workspace.name}" arquivado.')
             return redirect("organizations:workspaces")
 
         if action == "unarchive_workspace" and is_owner_or_manager:
             workspace.is_archived = False
             workspace.save(update_fields=["is_archived"])
-            messages.success(request, f'Workspace "{workspace.name}" has been restored.')
+            messages.success(request, f'Workspace "{workspace.name}" restaurado.')
             return redirect("workspaces:settings", workspace_id=workspace.id)
 
         if action == "delete_workspace" and is_owner_or_manager:
@@ -102,11 +102,11 @@ def workspace_settings(request, workspace_id):
                     .count()
                 )
                 if active_count <= 1 and not workspace.is_archived:
-                    messages.error(request, "Cannot delete the last workspace in the organization.")
+                    messages.error(request, "Não é possível excluir o último workspace da organização.")
                     return redirect("workspaces:settings", workspace_id=workspace.id)
                 workspace_name = workspace.name
                 workspace.delete()
-            messages.success(request, f'Workspace "{workspace_name}" has been permanently deleted.')
+            messages.success(request, f'Workspace "{workspace_name}" excluído permanentemente.')
             return redirect("organizations:workspaces")
 
         # Falling through to here used to let any member, viewers and portal
@@ -131,14 +131,14 @@ def workspace_settings(request, workspace_id):
             # and store it under the extension those bytes justify.
             safe_name = image_upload_name(icon)
             if safe_name is None:
-                messages.error(request, "Logo must be a JPEG, PNG, WebP, or GIF image.")
+                messages.error(request, "O logo deve ser uma imagem JPEG, PNG, WebP ou GIF.")
                 return redirect("workspaces:settings", workspace_id=workspace.id)
             icon.name = safe_name
 
             # Validate file size (2 MB max)
             max_size = 2 * 1024 * 1024
             if icon.size > max_size:
-                messages.error(request, "Logo must be under 2 MB.")
+                messages.error(request, "O logo deve ter menos de 2 MB.")
                 return redirect("workspaces:settings", workspace_id=workspace.id)
 
             # Delete old icon before saving new one
@@ -147,7 +147,7 @@ def workspace_settings(request, workspace_id):
             workspace.icon = icon
 
         workspace.save()
-        messages.success(request, "Workspace settings updated.")
+        messages.success(request, "Configurações do workspace atualizadas.")
         return redirect("workspaces:settings", workspace_id=workspace.id)
 
     active_count = Workspace.objects.filter(organization=workspace.organization, is_archived=False).count()
@@ -193,12 +193,12 @@ def approvals_settings(request, workspace_id):
         mode = request.POST.get("approval_workflow_mode", "")
         valid_modes = Workspace.ApprovalWorkflowMode.values
         if mode not in valid_modes:
-            messages.error(request, "Invalid approval workflow mode.")
+            messages.error(request, "Modo de fluxo de aprovação inválido.")
             return redirect("workspaces:approvals_settings", workspace_id=workspace.id)
 
         workspace.approval_workflow_mode = mode
         workspace.save(update_fields=["approval_workflow_mode", "updated_at"])
-        messages.success(request, "Approval workflow updated.")
+        messages.success(request, "Fluxo de aprovação atualizado.")
         return redirect("workspaces:approvals_settings", workspace_id=workspace.id)
 
     return render(

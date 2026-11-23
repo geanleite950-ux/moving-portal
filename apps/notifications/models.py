@@ -6,9 +6,9 @@ from django.db import models
 
 class EventType(models.TextChoices):
     POST_SUBMITTED = "post_submitted", "Post submitted for approval"
-    POST_APPROVED = "post_approved", "Post approved"
+    POST_APPROVED = "post_approved", "Post aprovado"
     POST_CHANGES_REQUESTED = "post_changes_requested", "Post changes requested"
-    POST_REJECTED = "post_rejected", "Post rejected"
+    POST_REJECTED = "post_rejected", "Post rejeitado"
     POST_PUBLISHED = "post_published", "Post published"
     POST_FAILED = "post_failed", "Post failed"
     NEW_INBOX_MESSAGE = "new_inbox_message", "New inbox message"
@@ -21,8 +21,8 @@ class EventType(models.TextChoices):
     COMMENT_MENTION = "comment_mention", "Mentioned in a comment"
     APPROVAL_REMINDER = "approval_reminder", "Approval reminder"
     APPROVAL_STALLED = "approval_stalled", "Stalled approval escalation"
-    APPROVAL_HOLD_REQUESTED = "approval_hold_requested", "Client requested a hold"
-    CLIENT_CONNECTED_ACCOUNTS = "client_connected_accounts", "Client connected accounts"
+    APPROVAL_HOLD_REQUESTED = "approval_hold_requested", "O cliente pediu espera"
+    CLIENT_CONNECTED_ACCOUNTS = "client_connected_accounts", "Contas conectadas pelo cliente"
 
 
 class Channel(models.TextChoices):

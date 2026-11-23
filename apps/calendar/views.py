@@ -13,6 +13,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from apps.common import ptbr
 from apps.common.validators import is_valid_hex_color
 from apps.composer.models import ContentCategory, PlatformPost, Post
 from apps.members.decorators import can_edit_post, membership_permissions, require_permission, require_post_edit
@@ -872,11 +873,11 @@ def _month_view_data(request, workspace, target_date, context):
     context.update(
         {
             "calendar_weeks": calendar_weeks,
-            "period_label": date(year, month, 1).strftime("%B %Y"),
+            "period_label": ptbr.month_year(date(year, month, 1)),
             "prev_date": prev_month.isoformat(),
             "next_date": next_month.isoformat(),
             "unscheduled_drafts": drafts,
-            "day_names": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "day_names": ptbr.DIAS,
         }
     )
 
@@ -955,7 +956,7 @@ def _week_view_data(request, workspace, target_date, context):
             "current_hour": now.hour,
             "prev_date": (monday - timedelta(weeks=1)).isoformat(),
             "next_date": (monday + timedelta(weeks=1)).isoformat(),
-            "period_label": f"{week_days[0].strftime('%b %d')} – {week_days[6].strftime('%b %d, %Y')}",
+            "period_label": ptbr.week_range(week_days[0], week_days[6]),
         }
     )
 
@@ -1024,7 +1025,7 @@ def _day_view_data(request, workspace, target_date, context):
             "current_hour": now.hour,
             "prev_date": (target_date - timedelta(days=1)).isoformat(),
             "next_date": (target_date + timedelta(days=1)).isoformat(),
-            "period_label": target_date.strftime("%A, %B %d, %Y"),
+            "period_label": ptbr.full_day(target_date),
         }
     )
 

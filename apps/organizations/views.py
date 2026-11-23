@@ -12,6 +12,7 @@ from django.shortcuts import redirect, render
 from django.utils import timezone as django_tz
 from django.views.decorators.http import require_http_methods
 
+from apps.common import ptbr
 from apps.accounts.signup_links import custom_signup_url, signup_allowed
 from apps.common.validators import clean_display_name
 from apps.composer.models import PlatformPost, Post, Tag
@@ -126,24 +127,24 @@ def _handle_name_update(request, org):
     """
     name = clean_display_name(request.POST.get("name", ""))
     if not name:
-        messages.error(request, "Organization name cannot be empty.")
+        messages.error(request, "O nome da organização não pode ficar vazio.")
         return
 
     org.name = name
     org.save(update_fields=["name"])
-    messages.success(request, "Organization name updated.")
+    messages.success(request, "Nome da organização atualizado.")
 
 
 def _handle_tz_update(request, org):
     """Handle default timezone change."""
     tz = request.POST.get("timezone", "").strip()
     if tz not in available_timezones():
-        messages.error(request, "Invalid timezone.")
+        messages.error(request, "Fuso horário inválido.")
         return
 
     org.default_timezone = tz
     org.save(update_fields=["default_timezone"])
-    messages.success(request, "Default timezone updated.")
+    messages.success(request, "Fuso horário padrão atualizado.")
 
 
 @transaction.atomic
@@ -165,7 +166,7 @@ def _handle_org_deletion(request, org):
 
     execute_scheduled_org_deletion(str(org.id), schedule=grace)
 
-    messages.success(request, "Organization scheduled for deletion in 14 days.")
+    messages.success(request, "Organização agendada para exclusão em 14 dias.")
     return redirect("organizations:settings")
 
 
@@ -213,7 +214,7 @@ def _handle_cancel_deletion(request, org):
     org.deletion_scheduled_for = None
     org.save(update_fields=["deletion_requested_at", "deletion_scheduled_for"])
     messages.success(
-        request, "Organization deletion cancelled. Reconnect any YouTube channels removed when deletion was requested."
+        request, "Exclusão da organização cancelada. Reconecte os canais do YouTube removidos quando a exclusão foi solicitada."
     )
 
 
@@ -313,7 +314,7 @@ def cross_workspace_calendar(request):
             "workspace_colors": workspace_colors,
             "target_date": target_date,
             "default_workspace": workspaces.first(),
-            "day_names": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "day_names": ptbr.DIAS,
             "settings_active": "calendars",
             "view_type": view_type,
             "social_accounts": social_accounts,
@@ -364,7 +365,7 @@ def _build_month_context(base_pps, target_date, today):
 
     return {
         "calendar_weeks": calendar_weeks,
-        "period_label": date(year, month, 1).strftime("%B %Y"),
+        "period_label": ptbr.month_year(date(year, month, 1)),
         "prev_date": prev_month.isoformat(),
         "next_date": next_month.isoformat(),
     }
@@ -403,7 +404,7 @@ def _build_week_context(base_pps, target_date, today):
         "week_slots": week_slots,
         "today": today,
         "current_hour": _tz.now().hour,
-        "period_label": f"{week_days[0].strftime('%b %d')} – {week_days[6].strftime('%b %d, %Y')}",
+        "period_label": ptbr.week_range(week_days[0], week_days[6]),
         "prev_date": (monday - timedelta(weeks=1)).isoformat(),
         "next_date": (monday + timedelta(weeks=1)).isoformat(),
     }
@@ -430,7 +431,7 @@ def _build_day_context(base_pps, target_date, today):
         "is_today": target_date == today,
         "is_past_day": target_date < today,
         "current_hour": now.hour,
-        "period_label": target_date.strftime("%A, %B %d, %Y"),
+        "period_label": ptbr.full_day(target_date),
         "prev_date": (target_date - timedelta(days=1)).isoformat(),
         "next_date": (target_date + timedelta(days=1)).isoformat(),
     }

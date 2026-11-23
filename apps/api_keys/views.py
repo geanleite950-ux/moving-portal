@@ -466,9 +466,9 @@ def revoke_key(request, key_id):
         raise Http404()
     if key.revoked_at is None:
         services.revoke_api_key(key)
-        messages.success(request, f"Revoked key “{key.name}”.")
+        messages.success(request, f"Chave “{key.name}” revogada.")
     else:
-        messages.info(request, f"Key “{key.name}” was already revoked.")
+        messages.info(request, f"A chave “{key.name}” já estava revogada.")
     return redirect("api_keys:list")
 
 
@@ -497,7 +497,7 @@ def edit_key(request, key_id):
 
     # Only active keys are editable (mirror the row's Edit button gating).
     if not key.is_active:
-        messages.info(request, f"Key “{key.name}” is not active; it can't be edited.")
+        messages.info(request, f"A chave “{key.name}” não está ativa; não pode ser editada.")
         return redirect("api_keys:list")
 
     account_ids = request.POST.getlist("social_account_ids")
@@ -530,5 +530,5 @@ def edit_key(request, key_id):
         messages.error(request, str(exc))
         return redirect("api_keys:list")
 
-    messages.success(request, f"Updated “{key.name}”.")
+    messages.success(request, f"“{key.name}” atualizada.")
     return redirect("api_keys:list")

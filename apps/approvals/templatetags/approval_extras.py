@@ -12,7 +12,7 @@ STATUS_META = {
     "draft": {"label": "Draft", "dot": "#A8A29E", "bg": "#F5F5F4", "fg": "#57534E", "bd": "#E7E5E4"},
     "pending_review": {"label": "Pending Review", "dot": "#0B3651", "bg": "#EDF1F4", "fg": "#062235", "bd": "#B6C8D3"},
     "pending_client": {"label": "Pending Client", "dot": "#0B3651", "bg": "#EDF1F4", "fg": "#062235", "bd": "#B6C8D3"},
-    "approved": {"label": "Approved", "dot": "#14B8A6", "bg": "#F0FDFA", "fg": "#0F766E", "bd": "#99F6E4"},
+    "approved": {"label": "Aprovado", "dot": "#14B8A6", "bg": "#F0FDFA", "fg": "#0F766E", "bd": "#99F6E4"},
     "changes_requested": {
         "label": "Changes Requested",
         "dot": "#0B3651",

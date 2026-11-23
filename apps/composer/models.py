@@ -342,7 +342,7 @@ class PlatformPost(models.Model):
         DRAFT = "draft", "Draft"
         PENDING_REVIEW = "pending_review", "Pending Review"
         PENDING_CLIENT = "pending_client", "Pending Client"
-        APPROVED = "approved", "Approved"
+        APPROVED = "approved", "Aprovado"
         CHANGES_REQUESTED = "changes_requested", "Changes Requested"
         REJECTED = "rejected", "Rejected"
         SCHEDULED = "scheduled", "Scheduled"

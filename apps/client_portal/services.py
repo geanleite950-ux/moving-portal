@@ -101,7 +101,7 @@ def generate_magic_link(workspace, client_user, created_by):
         # Roll the new token back so we do not leave a link nobody was told
         # about, and leave the client's existing one working.
         MagicLinkToken.objects.filter(pk=token.pk).delete()
-        raise ValueError("We could not send that link right now. Please try again shortly.") from exc
+        raise ValueError("Não foi possível enviar o link agora. Tente novamente em instantes.") from exc
 
     # The replacement is on its way, so the old links can go.
     if superseded:

@@ -111,7 +111,7 @@ def _remind_reviewers(post):
             notify(
                 user=membership.user,
                 event_type=EventType.APPROVAL_REMINDER,
-                title="Post awaiting your review",
+                title="Post aguardando sua revisão",
                 body=f'A post in {workspace.name} has been waiting for review: "{post.caption_snippet}"',
                 data={
                     "post_id": str(post.id),
@@ -132,8 +132,8 @@ def _remind_clients(post):
         notify(
             user=membership.user,
             event_type=EventType.APPROVAL_REMINDER,
-            title="Posts waiting for your approval",
-            body=f"Content in {workspace.name} is waiting for your review.",
+            title="Posts aguardando sua aprovação",
+            body=f"Há conteúdo em {workspace.name} aguardando sua revisão.",
             data={
                 "post_id": str(post.id),
                 "workspace_id": str(workspace.id),
@@ -158,7 +158,7 @@ def _escalate(post, stage):
         notify(
             user=membership.user,
             event_type=EventType.APPROVAL_STALLED,
-            title="Stalled post needs attention",
+            title="Post parado precisa de atenção",
             body=f'A post in {workspace.name} has been stuck in {stage_label} after multiple reminders: "{post.caption_snippet}"',
             data={
                 "post_id": str(post.id),

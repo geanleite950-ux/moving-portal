@@ -6,7 +6,7 @@ Usage:
     notify(
         user=some_user,
         event_type="post_approved",
-        title="Post approved",
+        title="Post aprovado",
         body="Your post 'New product launch' was approved by Jane.",
         data={"post_id": str(post.id), "workspace_id": str(ws.id)},
     )

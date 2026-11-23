@@ -126,7 +126,7 @@ def submit_for_review(target, user, workspace):
         user,
         post=post,
         event_type=EventType.POST_SUBMITTED,
-        title="Post submitted for review",
+        title="Post enviado para revisão",
         body=f'{user.display_name} submitted a post for your review: "{post.caption_snippet}"',
     )
 
@@ -180,7 +180,7 @@ def approve_post(target, user, workspace, comment=""):
         notify(
             user=post.author,
             event_type=EventType.POST_APPROVED,
-            title="Post approved",
+            title="Post aprovado",
             body=f'Your post "{post.caption_snippet}" was approved by {user.display_name}.',
             data={
                 "post_id": str(post.id),
@@ -216,7 +216,7 @@ def request_changes(target, user, workspace, comment):
         notify(
             user=post.author,
             event_type=EventType.POST_CHANGES_REQUESTED,
-            title="Changes requested on your post",
+            title="Ajustes solicitados no seu post",
             body=f'{user.display_name} requested changes: "{comment[:100]}"',
             data={
                 "post_id": str(post.id),
@@ -252,7 +252,7 @@ def reject_post(target, user, workspace, comment):
         notify(
             user=post.author,
             event_type=EventType.POST_REJECTED,
-            title="Post rejected",
+            title="Post rejeitado",
             body=f'{user.display_name} rejected your post: "{comment[:100]}"',
             data={
                 "post_id": str(post.id),
@@ -349,7 +349,7 @@ def resubmit_post(target, user, workspace):
         user,
         post=post,
         event_type=EventType.POST_SUBMITTED,
-        title="Post resubmitted for review",
+        title="Post reenviado para revisão",
         body=f'{user.display_name} resubmitted a post: "{post.caption_snippet}"',
     )
 
@@ -404,7 +404,7 @@ def _notify_reviewers_of_hold(post, workspace, user, comment):
         user,
         post=post,
         event_type=EventType.APPROVAL_HOLD_REQUESTED,
-        title="Client requested a hold",
+        title="O cliente pediu espera",
         body=f'{user.display_name} put a post on hold: "{comment[:100]}"',
     )
 
@@ -420,8 +420,8 @@ def _notify_clients(post, workspace):
         notify(
             user=membership.user,
             event_type=EventType.CLIENT_APPROVAL_REQUESTED,
-            title="Posts ready for your review",
-            body=f"A post in {workspace.name} is waiting for your approval.",
+            title="Posts prontos para sua revisão",
+            body=f"Um post em {workspace.name} aguarda sua aprovação.",
             data={
                 "post_id": str(post.id),
                 "workspace_id": str(workspace.id),

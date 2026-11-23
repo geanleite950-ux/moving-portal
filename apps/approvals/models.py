@@ -17,7 +17,7 @@ class ApprovalAction(models.Model):
 
     class ActionType(models.TextChoices):
         SUBMITTED = "submitted", "Submitted"
-        APPROVED = "approved", "Approved"
+        APPROVED = "approved", "Aprovado"
         CHANGES_REQUESTED = "changes_requested", "Changes Requested"
         REJECTED = "rejected", "Rejected"
         RESUBMITTED = "resubmitted", "Resubmitted"

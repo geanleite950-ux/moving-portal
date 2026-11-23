@@ -58,16 +58,16 @@ def approve(request, workspace_id, post_id):
     try:
         moved = services.approve_post(post, request.user, workspace, comment_text)
     except ValueError as e:
-        return _toast_response(tone="error", title="Couldn't approve", body=str(e))
+        return _toast_response(tone="error", title="Não foi possível aprovar", body=str(e))
 
     if not moved:
-        return _toast_response(tone="warn", title="Nothing to update", body="This post was already actioned.")
+        return _toast_response(tone="warn", title="Nada para atualizar", body="Este post já foi tratado.")
 
     if post.platform_posts.filter(status="pending_client").exists():
         return _toast_response(
-            tone="success", title="Approved internally", body="Sent for client sign-off", refresh="approvalAction"
+            tone="success", title="Aprovado internamente", body="Enviado para aprovação do cliente", refresh="approvalAction"
         )
-    return _toast_response(tone="success", title="Approved", body="Ready to publish", refresh="approvalAction")
+    return _toast_response(tone="success", title="Aprovado", body="Pronto para publicar", refresh="approvalAction")
 
 
 @login_required
@@ -82,13 +82,13 @@ def request_changes_view(request, workspace_id, post_id):
     try:
         moved = services.request_changes(post, request.user, workspace, comment_text)
     except ValueError as e:
-        return _toast_response(tone="error", title="Couldn't send back", body=str(e))
+        return _toast_response(tone="error", title="Não foi possível devolver", body=str(e))
 
     if not moved:
-        return _toast_response(tone="warn", title="Nothing to update", body="This post was already actioned.")
+        return _toast_response(tone="warn", title="Nada para atualizar", body="Este post já foi tratado.")
 
     return _toast_response(
-        tone="info", title="Sent back for changes", body="The author was notified", refresh="approvalAction"
+        tone="info", title="Devolvido para ajustes", body="O autor foi avisado", refresh="approvalAction"
     )
 
 
@@ -104,13 +104,13 @@ def reject(request, workspace_id, post_id):
     try:
         moved = services.reject_post(post, request.user, workspace, comment_text)
     except ValueError as e:
-        return _toast_response(tone="error", title="Couldn't reject", body=str(e))
+        return _toast_response(tone="error", title="Não foi possível rejeitar", body=str(e))
 
     if not moved:
-        return _toast_response(tone="warn", title="Nothing to update", body="This post was already actioned.")
+        return _toast_response(tone="warn", title="Nada para atualizar", body="Este post já foi tratado.")
 
     return _toast_response(
-        tone="error", title="Post rejected", body="The author was notified", refresh="approvalAction"
+        tone="error", title="Post rejeitado", body="O autor foi avisado", refresh="approvalAction"
     )
 
 
@@ -124,9 +124,9 @@ def resume(request, workspace_id, post_id):
 
     moved = services.resume_hold(post, request.user, workspace)
     if not moved:
-        return _toast_response(tone="warn", title="Nothing to update", body="This post is not on hold.")
+        return _toast_response(tone="warn", title="Nada para atualizar", body="Este post não está em espera.")
 
-    return _toast_response(tone="success", title="Hold lifted", body="Back to approved", refresh="approvalAction")
+    return _toast_response(tone="success", title="Espera encerrada", body="De volta a aprovado", refresh="approvalAction")
 
 
 @login_required
@@ -139,7 +139,7 @@ def bulk_action(request, workspace_id):
     post_ids = request.POST.getlist("post_ids")
 
     if not post_ids:
-        return _toast_response(tone="warn", title="No posts selected")
+        return _toast_response(tone="warn", title="Nenhum post selecionado")
 
     if action == "approve":
         results = services.bulk_approve(post_ids, request.user, workspace)
@@ -148,26 +148,26 @@ def bulk_action(request, workspace_id):
         try:
             results = services.bulk_reject(post_ids, request.user, workspace, comment_text)
         except ValueError as e:
-            return _toast_response(tone="error", title="Couldn't reject", body=str(e))
+            return _toast_response(tone="error", title="Não foi possível rejeitar", body=str(e))
     else:
-        return _toast_response(tone="error", title="Invalid action")
+        return _toast_response(tone="error", title="Ação inválida")
 
     n = sum(1 for _, success, _ in results if success)
     plural = "s" if n != 1 else ""
 
     if n == 0:
         return _toast_response(
-            tone="warn", title="Nothing to update", body="None were still pending.", refresh="bulkActionComplete"
+            tone="warn", title="Nada para atualizar", body="Nenhum estava pendente.", refresh="bulkActionComplete"
         )
     if action == "approve":
         return _toast_response(
             tone="success",
-            title=f"{n} post{plural} approved",
-            body="Moved to the next stage",
+            title=f"{n} post{plural} aprovado{plural}",
+            body="Movido para a próxima etapa",
             refresh="bulkActionComplete",
         )
     return _toast_response(
-        tone="error", title=f"{n} post{plural} rejected", body="Creators notified", refresh="bulkActionComplete"
+        tone="error", title=f"{n} post{plural} rejeitado{plural}", body="Criadores avisados", refresh="bulkActionComplete"
     )
 
 

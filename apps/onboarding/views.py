@@ -136,7 +136,7 @@ def create_link(request, workspace_id):
             {"link": link, "link_url": link_url},
         )
 
-    messages.success(request, "Connection link created.")
+    messages.success(request, "Link de conexão criado.")
     return redirect("social_accounts:list", workspace_id=workspace_id)
 
 
@@ -152,7 +152,7 @@ def revoke_link(request, workspace_id, link_id):
     if request.headers.get("HX-Request"):
         return HttpResponse(status=200)
 
-    messages.success(request, "Connection link revoked.")
+    messages.success(request, "Link de conexão revogado.")
     return redirect("social_accounts:list", workspace_id=workspace_id)
 
 
@@ -166,11 +166,11 @@ def send_link_email(request, workspace_id, link_id):
     email = request.POST.get("email", "").strip()
 
     if not email:
-        messages.error(request, "Email address is required.")
+        messages.error(request, "O e-mail é obrigatório.")
         return redirect("social_accounts:list", workspace_id=workspace_id)
 
     if not link.is_active:
-        messages.error(request, "This connection link is no longer active.")
+        messages.error(request, "Este link de conexão não está mais ativo.")
         return redirect("social_accounts:list", workspace_id=workspace_id)
 
     link_url = request.build_absolute_uri(reverse("onboarding:connection_page", kwargs={"token": link.token}))
@@ -201,11 +201,11 @@ def send_link_email(request, workspace_id, link_id):
     if not msg.send(fail_silently=False):
         messages.error(
             request,
-            "We could not send that link right now. Please try again shortly.",
+            "Não foi possível enviar o link agora. Tente novamente em instantes.",
         )
         return redirect("social_accounts:list", workspace_id=workspace_id)
 
-    messages.success(request, f"Connection link sent to {email}.")
+    messages.success(request, f"Link de conexão enviado para {email}.")
     return redirect("social_accounts:list", workspace_id=workspace_id)
 
 
@@ -374,7 +374,7 @@ def connection_oauth_callback(request, platform):
         return render(
             request,
             "onboarding/connection_expired.html",
-            {"error": "Missing authorization code or state parameter."},
+            {"error": "Código de autorização ou parâmetro de estado ausente."},
         )
 
     # Validate state
@@ -384,7 +384,7 @@ def connection_oauth_callback(request, platform):
         return render(
             request,
             "onboarding/connection_expired.html",
-            {"error": "Invalid or expired OAuth state. Please try again."},
+            {"error": "Estado OAuth inválido ou expirado. Tente novamente."},
         )
 
     # Verify this is a connection link flow
@@ -401,7 +401,7 @@ def connection_oauth_callback(request, platform):
         return render(
             request,
             "onboarding/connection_expired.html",
-            {"error": "OAuth session mismatch. Please try again."},
+            {"error": "Sessão OAuth divergente. Tente novamente."},
         )
 
     # Validate platform matches
@@ -409,7 +409,7 @@ def connection_oauth_callback(request, platform):
         return render(
             request,
             "onboarding/connection_expired.html",
-            {"error": "Platform mismatch in OAuth callback."},
+            {"error": "Plataforma divergente no retorno do OAuth."},
         )
 
     # Look up connection link
@@ -546,7 +546,7 @@ def connection_oauth_callback(request, platform):
     except Exception:
         logger.exception("Connection link OAuth callback failed for %s", platform)
         # Store error in session to display on connection page
-        request.session["connection_link_error"] = "Failed to connect account. Please try again."
+        request.session["connection_link_error"] = "Falha ao conectar a conta. Tente novamente."
 
     return redirect("onboarding:connection_page", token=token)
 
@@ -580,8 +580,8 @@ def connection_done(request, token):
         notify(
             user=membership.user,
             event_type=EventType.CLIENT_CONNECTED_ACCOUNTS,
-            title="Client connected accounts",
-            body=f"{connected_count} account(s) connected to {link.workspace.name}: {account_names}",
+            title="Contas conectadas pelo cliente",
+            body=f"{connected_count} conta(s) conectada(s) em {link.workspace.name}: {account_names}",
             data={
                 "workspace_id": str(link.workspace_id),
                 "connection_link_id": str(link.id),
@@ -610,7 +610,7 @@ def connection_bluesky_connect(request, token):
     app_password = request.POST.get("app_password", "").strip()
 
     if not handle or not app_password:
-        request.session["connection_link_error"] = "Handle and app password are required."
+        request.session["connection_link_error"] = "Usuário e senha de app são obrigatórios."
         return redirect("onboarding:connection_page", token=token)
 
     org = link.workspace.organization
@@ -637,7 +637,7 @@ def connection_bluesky_connect(request, token):
     except Exception:
         logger.exception("Connection link Bluesky connection failed")
         request.session["connection_link_error"] = (
-            "Failed to connect Bluesky account. Check your handle and app password."
+            "Falha ao conectar a conta do Bluesky. Confira seu usuário e a senha de app."
         )
 
     return redirect("onboarding:connection_page", token=token)
@@ -653,7 +653,7 @@ def connection_mastodon_start(request, token):
 
     instance_url = _normalize_mastodon_instance_url(request.POST.get("instance_url", ""))
     if not instance_url:
-        request.session["connection_link_error"] = "Instance URL is required."
+        request.session["connection_link_error"] = "A URL da instância é obrigatória."
         return redirect("onboarding:connection_page", token=token)
 
     org = link.workspace.organization
@@ -683,7 +683,7 @@ def connection_mastodon_start(request, token):
             client_secret = app_data["client_secret"]
         except Exception:
             logger.exception("Mastodon app registration failed for %s", instance_url)
-            request.session["connection_link_error"] = f"Failed to register with {instance_url}. Check the URL."
+            request.session["connection_link_error"] = f"Falha ao registrar em {instance_url}. Confira a URL."
             return redirect("onboarding:connection_page", token=token)
 
     # Initiate OAuth
