@@ -110,6 +110,33 @@ def generate_magic_link(workspace, client_user, created_by):
     return token
 
 
+def generate_direct_magic_link(workspace, client_user):
+    """Create a magic link and return its URL without sending any email.
+
+    For deployments where outbound email is not set up: the manager copies the
+    URL and passes it to the client through another channel. Earlier unused
+    links for the same client are expired so only the newest one works.
+    """
+    membership = WorkspaceMembership.objects.filter(
+        user=client_user,
+        workspace=workspace,
+        workspace_role=WorkspaceMembership.WorkspaceRole.CLIENT,
+    ).first()
+    if not membership:
+        raise ValueError("User does not have client role in this workspace.")
+
+    MagicLinkToken.objects.filter(
+        user=client_user,
+        workspace=workspace,
+        is_consumed=False,
+        expires_at__gt=timezone.now(),
+    ).update(expires_at=timezone.now())
+
+    token = MagicLinkToken.objects.create(user=client_user, workspace=workspace)
+    app_url = getattr(settings, "APP_URL", "http://localhost:8000").rstrip("/")
+    return f"{app_url}/portal/{token.token}/"
+
+
 def peek_magic_link(token_string):
     """Validate a magic link token *without* consuming it.
 

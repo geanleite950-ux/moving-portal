@@ -126,6 +126,84 @@ def invite_client(request, workspace_id):
 
 
 # ---------------------------------------------------------------------------
+# Direct access link (no email)
+# ---------------------------------------------------------------------------
+
+
+@login_required
+@require_workspace_role("manager")
+@require_POST
+@ratelimit(key="user", rate="10/m", method="POST", block=True)
+def direct_link(request, workspace_id):
+    """Create (or reuse) a client and show a portal link to copy, without email."""
+    from django.contrib.auth import get_user_model
+
+    workspace = request.workspace
+    email = request.POST.get("email", "").strip().lower()
+    name = request.POST.get("name", "").strip()
+
+    if not email or "@" not in email:
+        return HttpResponse(
+            '<div class="text-red-600 text-sm p-3">Informe um e-mail válido.</div>',
+            status=422,
+        )
+
+    User = get_user_model()
+    user = User.objects.filter(email__iexact=email).first()
+    if user is None:
+        user = User.objects.create_user(email=email, name=name)
+        user.set_unusable_password()
+        user.save(update_fields=["password"])
+    elif name and not user.name:
+        user.name = name
+        user.save(update_fields=["name"])
+
+    OrgMembership.objects.get_or_create(
+        user=user,
+        organization=request.org,
+        defaults={"org_role": OrgMembership.OrgRole.MEMBER},
+    )
+    membership, _ = WorkspaceMembership.objects.get_or_create(
+        user=user,
+        workspace=workspace,
+        defaults={"workspace_role": WorkspaceMembership.WorkspaceRole.CLIENT},
+    )
+    if membership.workspace_role != WorkspaceMembership.WorkspaceRole.CLIENT:
+        return HttpResponse(
+            '<div class="text-red-600 text-sm p-3">Essa pessoa já tem outro papel neste workspace.</div>',
+            status=422,
+        )
+
+    url = portal_services.generate_direct_magic_link(workspace, user)
+    return render(
+        request,
+        "client_portal/admin/partials/direct_link_result.html",
+        {"client_email": user.email, "magic_url": url},
+    )
+
+
+@login_required
+@require_workspace_role("manager")
+@require_POST
+@ratelimit(key="user", rate="10/m", method="POST", block=True)
+def direct_link_for_member(request, workspace_id, membership_id):
+    """New copyable link for an existing client of this workspace."""
+    workspace = request.workspace
+    membership = get_object_or_404(
+        WorkspaceMembership,
+        id=membership_id,
+        workspace=workspace,
+        workspace_role=WorkspaceMembership.WorkspaceRole.CLIENT,
+    )
+    url = portal_services.generate_direct_magic_link(workspace, membership.user)
+    return render(
+        request,
+        "client_portal/admin/partials/direct_link_result.html",
+        {"client_email": membership.user.email, "magic_url": url},
+    )
+
+
+# ---------------------------------------------------------------------------
 # Send Magic Link
 # ---------------------------------------------------------------------------
 

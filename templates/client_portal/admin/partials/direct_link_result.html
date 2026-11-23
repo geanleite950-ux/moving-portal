@@ -1,0 +1,18 @@
+<div class="p-4 rounded-xl text-sm" style="background: var(--surface-0); border: 1px solid var(--border);">
+    <div class="font-semibold mb-1" style="color: var(--text-primary);">Link de acesso para {{ client_email }}</div>
+    <p class="text-xs mb-3" style="color: var(--text-tertiary);">
+        Copie e envie ao cliente (WhatsApp, por exemplo). O link vale por tempo limitado e um novo link cancela o anterior.
+    </p>
+    <div class="flex items-center gap-2" x-data="{ copied: false }">
+        <input type="text" readonly value="{{ magic_url }}" id="direct-link-input"
+               class="flex-1 text-xs px-3 py-2 rounded-lg"
+               style="border: 1px solid var(--border); background: var(--surface-1); color: var(--text-primary);"
+               onclick="this.select()">
+        <button type="button"
+                @click="navigator.clipboard.writeText(document.getElementById('direct-link-input').value).then(() => { copied = true })"
+                class="text-xs px-3 py-2 rounded-full font-medium cursor-pointer"
+                style="background: var(--primary); color: white;">
+            <span x-text="copied ? 'Copiado' : 'Copiar'"></span>
+        </button>
+    </div>
+</div>

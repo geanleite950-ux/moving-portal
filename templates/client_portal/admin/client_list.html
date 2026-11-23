@@ -17,6 +17,25 @@
         </button>
     </div>
 
+    <!-- Acesso direto sem e-mail -->
+    <div class="mb-6 p-4 rounded-xl" style="background: var(--surface-0); border: 1px solid var(--border);">
+        <h3 class="text-sm font-semibold mb-1" style="color: var(--text-primary);">Acesso direto (sem e-mail)</h3>
+        <p class="text-xs mb-3" style="color: var(--text-tertiary);">
+            Cria o cliente neste workspace e gera um link para você copiar e enviar por WhatsApp.
+        </p>
+        <form hx-post="{% url 'client_portal_admin:direct_link' workspace_id=request.workspace.id %}"
+              hx-target="#direct-link-result" hx-swap="innerHTML" class="flex flex-wrap items-center gap-2">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Nome (opcional)"
+                   class="text-sm px-3 py-2 rounded-lg" style="border: 1px solid var(--border); background: var(--surface-1);">
+            <input type="email" name="email" required placeholder="E-mail do cliente"
+                   class="text-sm px-3 py-2 rounded-lg" style="border: 1px solid var(--border); background: var(--surface-1);">
+            <button type="submit" class="px-4 py-2 text-sm font-medium rounded-full cursor-pointer"
+                    style="background: var(--primary); color: white;">Gerar link</button>
+        </form>
+    </div>
+    <div id="direct-link-result" class="mb-6"></div>
+
     <!-- Active Clients -->
     <div style="background: var(--surface-0); border: 1px solid var(--border); border-radius: var(--radius-xl); overflow: hidden;" class="mb-8">
         <div class="px-6 py-4" style="border-bottom: 1px solid var(--border);">
