@@ -11,7 +11,7 @@
                     hx-target="#feeds-tab-content"
                     hx-swap="innerHTML"
                     class="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded-full border transition-all duration-150 cursor-pointer {% if selected_feed_id == 'all' %}text-stone-800 bg-green-50 border-green-200{% else %}text-stone-500 bg-white border-stone-200 hover:bg-stone-50{% endif %}">
-                All feeds
+                Todos os feeds
             </button>
             {% for feed in feeds %}
             <button hx-get="{% url 'composer:feed_list' workspace_id=workspace.id %}?feed_id={{ feed.id }}"
@@ -39,7 +39,7 @@
 
     <div class="flex items-center justify-between mb-3">
         <div class="text-sm text-stone-500">
-            {{ total_event_count }} recent events
+            {{ total_event_count }} eventos recentes
         </div>
         <div class="text-xs text-stone-400">
             {% if last_refreshed_at %}Last refreshed {{ last_refreshed_at|timesince }} ago{% endif %}
@@ -89,7 +89,7 @@
             <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-[420px] mx-4 p-6" @click.stop>
                 <h3 class="text-lg font-semibold text-stone-800 mb-2">Delete Feed</h3>
                 <p class="text-sm text-stone-600 mb-5">
-                    Remove <span class="font-semibold text-stone-800">{{ selected_feed.name }}</span> from your feeds?
+                    Remover <span class="font-semibold text-stone-800">{{ selected_feed.name }}</span> dos seus feeds?
                 </p>
                 <form hx-post="{% url 'composer:feed_delete' workspace_id=workspace.id feed_id=selected_feed.id %}"
                       hx-target="#feeds-tab-content"
@@ -101,7 +101,7 @@
                         <button type="button"
                                 @click="showDeleteFeedModal = false"
                                 class="px-3 py-2 text-sm text-stone-500 hover:text-stone-700 cursor-pointer">
-                            Cancel
+                            Cancelar
                         </button>
                         <button type="submit"
                                 class="px-4 py-2 text-sm font-semibold text-white rounded-xl bg-red-600 hover:bg-red-700 transition-colors cursor-pointer">
@@ -122,8 +122,8 @@
 <!-- Empty state -->
 <div class="flex flex-col lg:flex-row items-center justify-center gap-8 py-12">
     <div class="flex flex-col items-center lg:items-start text-center lg:text-left max-w-md">
-        <h2 class="text-lg font-semibold text-stone-800 mb-2">Add your First Feed</h2>
-        <p class="text-sm text-stone-500 mb-6">Subscribe to your favorite blogs, websites, or creators to get the latest content ideas.</p>
+        <h2 class="text-lg font-semibold text-stone-800 mb-2">Adicione seu primeiro feed</h2>
+        <p class="text-sm text-stone-500 mb-6">Assine seus blogs, sites ou criadores favoritos para receber ideias de conteúdo.</p>
 
         <div class="flex items-center gap-3">
             <button @click="showAddModal = true; $nextTick(() => $refs.customUrlInput.focus())"
@@ -158,7 +158,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
 
-        <h3 class="text-lg font-semibold text-stone-800 mb-2">Add RSS Feed</h3>
+        <h3 class="text-lg font-semibold text-stone-800 mb-2">Adicionar feed RSS</h3>
         <p class="text-sm text-stone-500 mb-4">
             RSS URLs are links to automatically get updates from a blog or news site.
             The link is usually made up of the website's domain name, followed by "/feed" or "/rss".
@@ -177,7 +177,7 @@
             {% csrf_token %}
             <input type="hidden" name="feed_id" value="{{ selected_feed_id }}">
             <div>
-                <label class="block text-xs font-semibold text-stone-600 mb-1.5">RSS URL</label>
+                <label class="block text-xs font-semibold text-stone-600 mb-1.5">URL do RSS</label>
                 <input type="url"
                        name="rss_url"
                        x-ref="customUrlInput"
@@ -190,7 +190,7 @@
                 <button type="button"
                         @click="showAddModal = false"
                         class="px-3 py-2 text-sm text-stone-500 hover:text-stone-700 cursor-pointer">
-                    Cancel
+                    Cancelar
                 </button>
                 <button type="submit"
                         class="px-4 py-2 text-sm font-semibold text-white rounded-xl transition-colors cursor-pointer"

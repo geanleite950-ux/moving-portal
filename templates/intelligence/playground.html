@@ -5,7 +5,7 @@
 {% block page_header %}
 <div class="flex flex-wrap items-center justify-between gap-3 mb-4 lg:mb-[25px]">
     <div>
-        <h1 class="text-xl sm:text-2xl font-semibold text-stone-900" style="letter-spacing: -0.01em;">Intelligence</h1>
+        <h1 class="text-xl sm:text-2xl font-semibold text-stone-900" style="letter-spacing: -0.01em;">Inteligência</h1>
         <p class="text-sm text-stone-500 mt-1">
             YouTube packaging scoring, channel benchmarks, content-gap research.
         </p>
@@ -14,7 +14,7 @@
     {% if subscription and subscription.status == "active" %}
     <div class="flex items-center gap-4 px-4 py-2 bg-stone-50 rounded-full border border-stone-200">
         <div class="text-xs">
-            <div class="text-stone-500">Plan</div>
+            <div class="text-stone-500">Plano</div>
             <div class="font-semibold text-stone-900 capitalize">{{ subscription.plan_slug|default:"," }}</div>
         </div>
         {% if me %}

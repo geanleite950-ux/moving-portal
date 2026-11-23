@@ -28,7 +28,7 @@
 
     <div class="grid grid-cols-2 gap-x-8 gap-y-5 mb-8">
         <div>
-            <div class="text-xs font-semibold uppercase tracking-wide mb-1.5" style="color: var(--text-tertiary);">Plan</div>
+            <div class="text-xs font-semibold uppercase tracking-wide mb-1.5" style="color: var(--text-tertiary);">Plano</div>
             <div class="flex items-center gap-2">
                 <span class="text-sm font-medium capitalize" style="color: var(--text-primary);">{{ subscription.plan_slug|default:"," }}</span>
             </div>
@@ -100,7 +100,7 @@
     {% endif %}
 
     {# ---- Billing contact email ---- #}
-    <h2 class="text-xl font-semibold mb-2" style="color: var(--text-primary);">Billing contact</h2>
+    <h2 class="text-xl font-semibold mb-2" style="color: var(--text-primary);">Contato de cobrança</h2>
     <p class="text-sm mb-6" style="color: var(--text-secondary);">
         Stripe invoices and failed-payment notices route to this email. Changing it also updates the Stripe Customer's contact email.
     </p>
@@ -113,7 +113,7 @@
         {% csrf_token %}
         <div class="flex items-end gap-4">
             <div class="flex-1">
-                <label for="billing_email" class="block text-sm font-semibold mb-2" style="color: var(--text-primary);">Email</label>
+                <label for="billing_email" class="block text-sm font-semibold mb-2" style="color: var(--text-primary);">E-mail</label>
                 <input type="email" name="billing_email" id="billing_email"
                        value="{{ billing_email }}" required
                        class="input-focus w-full px-3 py-2 text-sm rounded-lg outline-none transition-colors"
@@ -122,7 +122,7 @@
             <button type="submit"
                     class="btn-neutral px-5 py-2 text-sm font-medium rounded-full transition-colors cursor-pointer whitespace-nowrap"
                     style="background: var(--neutral-100); color: var(--text-primary);">
-                Save changes
+                Salvar alterações
             </button>
         </div>
 

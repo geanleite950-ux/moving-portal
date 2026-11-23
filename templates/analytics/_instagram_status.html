@@ -10,7 +10,7 @@
         {% if account.analytics_needs_reconnect %}
         <form method="post" action="{% url 'social_accounts:reconnect' workspace_id=workspace_id account_id=account.id %}" class="mt-2">
             {% csrf_token %}
-            <button type="submit" class="px-3 py-1.5 text-xs font-semibold text-amber-800 bg-amber-100 rounded-full">Reconnect for analytics</button>
+            <button type="submit" class="px-3 py-1.5 text-xs font-semibold text-amber-800 bg-amber-100 rounded-full">Reconecte para ver análises</button>
         </form>
         {% endif %}
     </div>

@@ -4,7 +4,7 @@
 {% block title %}Organization Calendar - Moving{% endblock %}
 
 {% block page_header %}
-<h1 class="text-xl font-semibold text-stone-900 mb-6" style="letter-spacing: -0.01em;">Organization Calendar</h1>
+<h1 class="text-xl font-semibold text-stone-900 mb-6" style="letter-spacing: -0.01em;">Calendário da organização</h1>
 {% endblock %}
 
 {% block extra_head %}
@@ -131,14 +131,14 @@
 
         <a href="{% url 'organizations:cross_workspace_calendar' %}?view={{ view_type }}{% for sid in selected_workspace_ids %}&workspace={{ sid }}{% endfor %}"
            class="px-3 py-1 text-xs font-semibold text-stone-600 border border-stone-200 rounded-md hover:bg-stone-50 transition-all duration-150 no-underline">
-            Today
+            Hoje
         </a>
 
         <!-- View dropdown (Month/Week/Day) -->
         <div class="relative" @click.away="viewOpen = false">
             <button @click="viewOpen = !viewOpen"
                     class="flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-stone-600 border border-stone-200 rounded-md hover:bg-stone-50 transition-all duration-150">
-                {% if view_type == 'week' %}Week{% elif view_type == 'day' %}Day{% else %}Month{% endif %}
+                {% if view_type == 'week' %}Semana{% elif view_type == 'day' %}Dia{% else %}Mês{% endif %}
                 <svg class="w-3 h-3 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
             </button>
             <div x-show="viewOpen" x-cloak
@@ -149,17 +149,17 @@
                 <a href="?view=month&date={{ target_date|date:'Y-m-d' }}{% for sid in selected_workspace_ids %}&workspace={{ sid }}{% endfor %}"
                    class="block w-full text-left px-3 py-1.5 text-xs font-medium text-stone-600 hover:bg-stone-50 transition-colors no-underline {% if view_type == 'month' %}text-orange-600 bg-orange-50{% endif %}"
                    @click="viewOpen = false">
-                    Month
+                    Mês
                 </a>
                 <a href="?view=week&date={{ target_date|date:'Y-m-d' }}{% for sid in selected_workspace_ids %}&workspace={{ sid }}{% endfor %}"
                    class="block w-full text-left px-3 py-1.5 text-xs font-medium text-stone-600 hover:bg-stone-50 transition-colors no-underline {% if view_type == 'week' %}text-orange-600 bg-orange-50{% endif %}"
                    @click="viewOpen = false">
-                    Week
+                    Semana
                 </a>
                 <a href="?view=day&date={{ target_date|date:'Y-m-d' }}{% for sid in selected_workspace_ids %}&workspace={{ sid }}{% endfor %}"
                    class="block w-full text-left px-3 py-1.5 text-xs font-medium text-stone-600 hover:bg-stone-50 transition-colors no-underline {% if view_type == 'day' %}text-orange-600 bg-orange-50{% endif %}"
                    @click="viewOpen = false">
-                    Day
+                    Dia
                 </a>
             </div>
         </div>
@@ -173,7 +173,7 @@
                 <svg class="org-filter-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                 <select class="org-filter-select has-icon"
                         @change="window.location.href='?view={{ view_type }}&date={{ target_date|date:'Y-m-d' }}{% for sid in selected_workspace_ids %}&workspace={{ sid }}{% endfor %}{% if request.GET.channel %}&channel={{ request.GET.channel }}{% endif %}{% if request.GET.tag %}&tag={{ request.GET.tag }}{% endif %}' + ($event.target.value ? '&status=' + $event.target.value : '')">
-                    <option value="">All Posts</option>
+                    <option value="">Todos os posts</option>
                     {% for value, label in status_choices %}
                     <option value="{{ value }}" {% if request.GET.status == value %}selected{% endif %}>{{ label }}</option>
                     {% endfor %}
@@ -185,7 +185,7 @@
                 <svg class="org-filter-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/></svg>
                 <select class="org-filter-select has-icon"
                         @change="window.location.href='?view={{ view_type }}&date={{ target_date|date:'Y-m-d' }}{% for sid in selected_workspace_ids %}&workspace={{ sid }}{% endfor %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tag %}&tag={{ request.GET.tag }}{% endif %}' + ($event.target.value ? '&channel=' + $event.target.value : '')">
-                    <option value="">Channels</option>
+                    <option value="">Canais</option>
                     {% for acc in social_accounts %}
                     <option value="{{ acc.id }}" {% if request.GET.channel == acc.id|stringformat:'s' %}selected{% endif %}>{{ acc.account_name|default:acc.account_handle }} ({{ acc.get_platform_display }})</option>
                     {% endfor %}
@@ -222,7 +222,7 @@
                     <a href="?view={{ view_type }}&date={{ target_date|date:'Y-m-d' }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.channel %}&channel={{ request.GET.channel }}{% endif %}{% if request.GET.tag %}&tag={{ request.GET.tag }}{% endif %}"
                        class="block px-3 py-1.5 text-xs font-medium transition-colors no-underline
                               {% if not selected_workspace_ids %}text-orange-600 bg-orange-50{% else %}text-stone-600 hover:bg-stone-50{% endif %}">
-                        All Workspaces
+                        Todos os workspaces
                     </a>
                     <div class="border-t border-stone-100 my-1"></div>
                     {% for ws in workspaces %}
@@ -269,7 +269,7 @@
                 {% for day in week %}
                 <div class="cross-cal-day cal-add-cell {% if day.is_today %}today{% elif day.is_past %}past{% endif %} {% if not day.is_current_month %}other-month{% endif %}">
                     {% if default_workspace and not day.is_past and day.is_current_month %}
-                    <a href="{% url 'composer:compose' workspace_id=default_workspace.id %}?scheduled_date={{ day.date|date:'Y-m-d' }}&scheduled_time=09:00" class="cal-add-btn" title="Create post">
+                    <a href="{% url 'composer:compose' workspace_id=default_workspace.id %}?scheduled_date={{ day.date|date:'Y-m-d' }}&scheduled_time=09:00" class="cal-add-btn" title="Criar post">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                     </a>
                     {% endif %}

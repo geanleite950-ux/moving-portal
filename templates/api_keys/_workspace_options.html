@@ -7,7 +7,7 @@ Context:
 {% endcomment %}
 <div>
     <label class="block text-sm font-semibold mb-1" style="color: var(--text-primary);">
-        Connected accounts
+        Contas conectadas
     </label>
     {% if accounts %}
     <div class="space-y-1.5">
@@ -22,19 +22,19 @@ Context:
         {% endfor %}
     </div>
     <p class="text-xs mt-1" style="color: var(--text-tertiary);">
-        Select at least one. The key can only act on these accounts.
+        Selecione ao menos uma. A chave só pode agir nessas contas.
     </p>
     {% else %}
     <p class="text-xs px-3 py-2 rounded-lg"
        style="background: var(--warning-soft, #FEF3C7); color: var(--warning-700, #B45309);">
-        No connected accounts in this workspace. Connect one before issuing a key.
+        Nenhuma conta conectada neste workspace. Conecte uma antes de emitir uma chave.
     </p>
     {% endif %}
 </div>
 
 <div>
     <label class="block text-sm font-semibold mb-1" style="color: var(--text-primary);">
-        Permissions
+        Permissões
     </label>
     {% if grantable_permissions %}
     <div class="space-y-1.5">
@@ -51,12 +51,12 @@ Context:
         {% endfor %}
     </div>
     <p class="text-xs mt-1" style="color: var(--text-tertiary);">
-        Only permissions you currently hold in this workspace are listed.
+        Apenas as permissões que você tem neste workspace são listadas.
     </p>
     {% else %}
     <p class="text-xs px-3 py-2 rounded-lg"
        style="background: var(--warning-soft, #FEF3C7); color: var(--warning-700, #B45309);">
-        You don't hold any grantable permissions in this workspace.
+        Você não tem permissões concedíveis neste workspace.
     </p>
     {% endif %}
 </div>

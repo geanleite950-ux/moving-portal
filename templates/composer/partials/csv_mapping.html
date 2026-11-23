@@ -4,7 +4,7 @@
     <div class="bg-white rounded-xl border border-stone-200 p-6">
         <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background: var(--primary);">2</div>
-            <h2 class="text-sm font-semibold text-stone-800">Map Columns</h2>
+            <h2 class="text-sm font-semibold text-stone-800">Mapear colunas</h2>
         </div>
 
         <form hx-post="{% url 'composer:csv_preview' workspace_id=workspace.id %}"
@@ -12,7 +12,7 @@
               hx-swap="innerHTML">
             {% csrf_token %}
 
-            <p class="text-xs text-stone-500 mb-4">Match each CSV column to the corresponding post field. Leave unmapped columns as "Skip".</p>
+            <p class="text-xs text-stone-500 mb-4">Associe cada coluna do CSV ao campo correspondente do post. Deixe as não mapeadas como "Ignorar".</p>
 
             <!-- Preview table -->
             <div class="overflow-x-auto mb-6 rounded-lg border border-stone-200">
@@ -60,7 +60,7 @@
 
             <div class="mt-5 flex justify-end">
                 <button type="submit" class="btn-brand text-sm py-2 px-5">
-                    Validate &amp; Preview
+                    Validar e pré-visualizar
                 </button>
             </div>
         </form>
