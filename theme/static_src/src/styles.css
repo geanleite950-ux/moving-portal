@@ -13,28 +13,34 @@
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Brand Tokens - BrightBean Orange */
-  --brand-50:  #FFF7ED;
-  --brand-100: #FFEDD5;
-  --brand-200: #FED7AA;
-  --brand-300: #FDBA74;
-  --brand-400: #FB923C;
-  --brand-500: #F97316;
-  --brand-600: #EA580C;
-  --brand-700: #C2410C;
-  --brand-800: #9A3412;
-  --brand-900: #7C2D12;
+  /* Moving tokens — Navy ramp (500 = Navy #0B3651) */
+  --brand-50:  #EDF1F4;
+  --brand-100: #DAE3E9;
+  --brand-200: #B6C8D3;
+  --brand-300: #8AA6B7;
+  --brand-400: #4F7690;
+  --brand-500: #0B3651;
+  --brand-600: #082B42;
+  --brand-700: #062235;
+  --brand-800: #041A28;
+  --brand-900: #03121C;
 
-  /* Brand Tokens - BrightBean Green (the bean in the logo) — used for
-     selection controls (checkboxes, toggle switches) */
-  --brand-green-100: #EFF2DC;
-  --brand-green-200: #DDE4B9;
-  --brand-green-500: #94A43F;
-  --brand-green-600: #7B8A33;
+  /* Moving — cores de apoio */
+  --moving-papel:   #F4F3EF;
+  --moving-navy:    #0B3651;
+  --moving-lime:    #EAFF15;
+  --moving-laranja: #F24C13;
+  --moving-nevoa:   #A3B5C0;
 
-  --brand-font-display: Georgia, 'Times New Roman', serif;
-  --brand-font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --brand-font-mono: ui-monospace, SFMono-Regular, 'Cascadia Code', 'Consolas', monospace;
+  /* Seleção (checkbox/toggle): Navy */
+  --brand-green-100: #DAE3E9;
+  --brand-green-200: #B6C8D3;
+  --brand-green-500: #0B3651;
+  --brand-green-600: #082B42;
+
+  --brand-font-display: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --brand-font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --brand-font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
 
   /* Semantic Tokens */
   --primary:       var(--brand-500);
@@ -43,22 +49,22 @@
   --primary-muted: var(--brand-100);
   --primary-ring:  var(--brand-200);
 
-  /* Neutrals - warm stone */
-  --neutral-950: #171412;
-  --neutral-900: #1C1917;
-  --neutral-800: #292524;
-  --neutral-700: #44403C;
-  --neutral-600: #57534E;
-  --neutral-500: #78716C;
-  --neutral-400: #A8A29E;
-  --neutral-300: #D6D3D1;
-  --neutral-200: #E7E5E4;
-  --neutral-100: #F5F5F4;
-  --neutral-50:  #FAFAF9;
+  /* Neutrals — Papel / Névoa / Navy */
+  --neutral-950: #082B42;
+  --neutral-900: #0B3651;
+  --neutral-800: #1F4560;
+  --neutral-700: #345469;
+  --neutral-600: #476071;
+  --neutral-500: #5A7282;
+  --neutral-400: #A3B5C0;
+  --neutral-300: #CBD3D6;
+  --neutral-200: #DFE0DC;
+  --neutral-100: #EAE9E4;
+  --neutral-50:  #F4F3EF;
 
   /* Surfaces */
   --surface-0: #FFFFFF;
-  --surface-page: rgb(247, 246, 242);
+  --surface-page: #F4F3EF;
   --surface-1: var(--neutral-50);
   --surface-2: var(--neutral-100);
   --surface-3: var(--neutral-200);
@@ -77,29 +83,29 @@
   --color-illustration-card: #FFFFFF;
   --color-illustration-element: var(--neutral-200);
   --color-illustration-secondary-element: var(--neutral-100);
-  --color-illustration-accent: var(--brand-500);
+  --color-illustration-accent: var(--moving-lime);
 
-  /* Status */
-  --success-500: #22C55E; --success-50: #F0FDF4; --success-700: #15803D;
-  --warning-500: #EAB308; --warning-50: #FEFCE8; --warning-700: #A16207;
-  --error-500:   #EF4444; --error-50:   #FEF2F2; --error-700:   #B91C1C;
-  --info-500:    #3B82F6; --info-50:    #EFF6FF; --info-700:    #1D4ED8;
+  /* Status — aprovado: Navy sobre Lime; ajustes: Laranja */
+  --success-500: #0B3651; --success-50: #EAFF15; --success-700: #0B3651;
+  --warning-500: #F24C13; --warning-50: #FEEDE6; --warning-700: #B8340A;
+  --error-500:   #F24C13; --error-50:   #FEEDE6; --error-700:   #B8340A;
+  --info-500:    #0B3651; --info-50:    #EDF1F4; --info-700:    #0B3651;
 
-  /* Accent palette */
-  --accent-teal:    #14B8A6; --accent-teal-soft:    #F0FDFA;
-  --accent-sky:     #0EA5E9; --accent-sky-soft:     #F0F9FF;
-  --accent-rose:    #F43F5E; --accent-rose-soft:    #FFF1F2;
-  --accent-amber:   #F59E0B; --accent-amber-soft:   #FFFBEB;
-  --accent-indigo:  #6366F1; --accent-indigo-soft:  #EEF2FF;
-  --accent-emerald: #10B981; --accent-emerald-soft: #ECFDF5;
+  /* Accent palette (reduzida à paleta Moving) */
+  --accent-teal:    #0B3651; --accent-teal-soft:    #EDF1F4;
+  --accent-sky:     #A3B5C0; --accent-sky-soft:     #EDF1F4;
+  --accent-rose:    #F24C13; --accent-rose-soft:    #FEEDE6;
+  --accent-amber:   #F24C13; --accent-amber-soft:   #FEEDE6;
+  --accent-indigo:  #0B3651; --accent-indigo-soft:  #EDF1F4;
+  --accent-emerald: #0B3651; --accent-emerald-soft: #EAFF15;
 
   /* Shadows */
-  --shadow-xs:  0 1px 2px rgba(23,20,18,0.05);
-  --shadow-sm:  0 1px 3px rgba(23,20,18,0.08), 0 1px 2px rgba(23,20,18,0.04);
-  --shadow-md:  0 4px 6px rgba(23,20,18,0.06), 0 2px 4px rgba(23,20,18,0.04);
-  --shadow-lg:  0 10px 15px rgba(23,20,18,0.08), 0 4px 6px rgba(23,20,18,0.04);
-  --shadow-xl:  0 20px 25px rgba(23,20,18,0.08), 0 8px 10px rgba(23,20,18,0.04);
-  --shadow-primary: 0 4px 14px rgba(249,115,22,0.28);
+  --shadow-xs:  0 1px 2px rgba(11,54,81,0.05);
+  --shadow-sm:  0 1px 3px rgba(11,54,81,0.08), 0 1px 2px rgba(11,54,81,0.04);
+  --shadow-md:  0 4px 6px rgba(11,54,81,0.06), 0 2px 4px rgba(11,54,81,0.04);
+  --shadow-lg:  0 10px 15px rgba(11,54,81,0.08), 0 4px 6px rgba(11,54,81,0.04);
+  --shadow-xl:  0 20px 25px rgba(11,54,81,0.08), 0 8px 10px rgba(11,54,81,0.04);
+  --shadow-primary: 0 4px 14px rgba(11,54,81,0.28);
 
   /* Radii */
   --radius-sm:   0.25rem;
@@ -122,6 +128,41 @@
   --font-mono:    var(--brand-font-mono);
 }
 
+
+/* ═══ Fontes locais (sem CDN) ═══ */
+@font-face { font-family: 'Satoshi'; src: url('../../fonts/Satoshi-Variable.woff2') format('woff2'); font-weight: 300 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Satoshi'; src: url('../../fonts/Satoshi-VariableItalic.woff2') format('woff2'); font-weight: 300 900; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Manrope'; src: url('../../fonts/Manrope-Variable.ttf') format('truetype'); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('../../fonts/IBMPlexMono-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('../../fonts/IBMPlexMono-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('../../fonts/IBMPlexMono-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+
+/* Tailwind v4: remapeia paletas para a identidade Moving */
+@theme {
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --color-orange-50:  #EDF1F4;
+  --color-orange-100: #DAE3E9;
+  --color-orange-200: #B6C8D3;
+  --color-orange-300: #8AA6B7;
+  --color-orange-400: #4F7690;
+  --color-orange-500: #0B3651;
+  --color-orange-600: #082B42;
+  --color-orange-700: #062235;
+  --color-orange-800: #041A28;
+  --color-orange-900: #03121C;
+}
+
+/* Títulos e interface em Satoshi; dados em Plex Mono */
+h1, h2, h3, h4, h5, h6, button, label, th, .sidebar-nav-item, .sidebar-section-label, .font-display {
+  font-family: var(--font-display);
+}
+code, kbd, pre, samp, time, .font-mono { font-family: var(--font-mono); }
+
+/* Estados de aprovação Moving */
+.status-approved { background: var(--moving-lime); color: var(--moving-navy); font-weight: 700; }
+.status-changes  { background: var(--moving-laranja); color: #fff; font-weight: 700; }
+
 /* Base */
 body {
   font-family: var(--font-body);
@@ -132,8 +173,8 @@ body {
 .auth-bg {
   background-color: var(--surface-1);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(249,115,22,0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(20,184,166,0.04), transparent);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(234,255,21,0.10), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(11,54,81,0.04), transparent);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -157,9 +198,9 @@ body {
   color: var(--text-primary);
 }
 .sidebar-nav-item.active {
-  background: var(--primary-soft);
-  color: var(--brand-700);
-  font-weight: 600;
+  background: var(--moving-lime);
+  color: var(--moving-navy);
+  font-weight: 700;
 }
 .sidebar-section-label {
   font-size: 10px;
@@ -182,8 +223,8 @@ body {
   width: 30px;
   height: 30px;
   border-radius: var(--radius-md);
-  background: var(--primary);
-  color: white;
+  background: var(--moving-lime);
+  color: var(--moving-navy);
   font-size: 13px;
   font-weight: 700;
   display: flex;
@@ -272,7 +313,7 @@ img.sidebar-logo-mark {
 .btn-primary-lift:hover {
   background: var(--primary-hover) !important;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(249,115,22,0.35);
+  box-shadow: 0 6px 20px rgba(11,54,81,0.30);
 }
 
 .card-hover-lift {
@@ -342,7 +383,7 @@ img.sidebar-logo-mark {
   transition: background var(--dur-fast) ease;
 }
 .btn-primary-tint:hover {
-  background: rgba(var(--primary-rgb, 249, 115, 22), 0.2) !important;
+  background: rgba(var(--primary-rgb, 11, 54, 81), 0.2) !important;
 }
 
 .input-focus {
@@ -424,7 +465,7 @@ img.sidebar-logo-mark {
 .btn-brand:hover {
   background: var(--primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(249,115,22,0.35);
+  box-shadow: 0 6px 20px rgba(11,54,81,0.30);
 }
 .btn-brand:active {
   transform: translateY(0);

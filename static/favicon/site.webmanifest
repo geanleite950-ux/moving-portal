@@ -1,6 +1,6 @@
 {
-  "name": "BrightBean Studio",
-  "short_name": "Bean",
+  "name": "Moving Portal",
+  "short_name": "Moving",
   "icons": [
     {
       "src": "web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffda99",
-  "background_color": "#ffffff",
+  "theme_color": "#0B3651",
+  "background_color": "#F4F3EF",
   "display": "standalone"
 }
